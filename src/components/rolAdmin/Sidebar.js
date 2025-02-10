@@ -9,7 +9,7 @@ import { HiOutlineClipboardList } from "react-icons/hi";
 import { MdApps } from "react-icons/md";
 import { AiOutlineUser } from "react-icons/ai";
 import { FcBusiness, FcCustomerSupport } from "react-icons/fc";
-import { FaGoogle } from "react-icons/fa";
+import { FaChalkboardTeacher, FaGoogle, FaTags } from "react-icons/fa";
 
 const Sidebar = ({ open, setOpen }) => {
   const { auth } = useAuth();
@@ -37,34 +37,26 @@ const Sidebar = ({ open, setOpen }) => {
         },
       ],
     },
+
     {
       is_title_head: true,
-      title_head: "Clientes",
+      title_head: "Clases",
       items: [
         {
-          title: "GoogleAds",
-          url: "/adsgoogle",
-          icon: <FaGoogle />,
+          title: "Categorias",
+          url: "/categories",
+          icon: <FaTags />,
         },
-        {
-          title: "Empresas",
-          url: "/empresas",
-          icon: <FcBusiness />,
-        },
-        {
-          title: "Prospectos",
-          url: "/prospects",
-          icon: <FcCustomerSupport />,
-        },
+        { title: "Cursos", url: "/courses", icon: <FaChalkboardTeacher /> },
+        // { title: "Modulos", url: "/modules", icon: <MdApps /> },
       ],
     },
-
     {
       is_title_head: true,
       title_head: "Planes",
       items: [
         { title: "Planes", url: "/plans", icon: <HiOutlineClipboardList /> },
-        { title: "Modulos", url: "/modules", icon: <MdApps /> },
+        // { title: "Modulos", url: "/modules", icon: <MdApps /> },
       ],
     },
   ];
@@ -115,8 +107,10 @@ const Sidebar = ({ open, setOpen }) => {
             className="w-6 h-6 rounded-full block cursor-pointer float-left mr-2 "
             alt=""
           />
-          <div className={`${!open && "scale-0"}`}>
-            <h1 className="text-lg font-bold text-start">{auth.user.nombre}</h1>
+          <div className={`${!open && "scale-0"} overflow-hidden`}>
+            <h1 className="text-lg font-bold text-start overflow-hidden text-ellipsis">
+              {auth.user.nombre}
+            </h1>
             <h1 className="text-sm text-start">{auth.user.email}</h1>
             <span className="text-sm font-bold text-start">superadmin</span>
           </div>
@@ -135,16 +129,12 @@ const Sidebar = ({ open, setOpen }) => {
                     to={i.url}
                     className={({ isActive }) =>
                       isActive
-                        ? "bg-light-purple text-dark-purple  text-sm p-2 flex gap-3 items-center rounded duration-300 transition-all"
-                        : "p-2 text-sm hover:bg-light-purple hover:text-dark-purple  transition-all rounded duration-300 flex gap-3 items-center"
+                        ? "bg-gray-100 text-dark-purple  font-bold text-sm p-2 flex gap-3 items-center rounded duration-300 transition-all"
+                        : "p-2 text-sm hover:bg-gray-100 hover:text-dark-purple  transition-all rounded duration-300 flex gap-3 items-center"
                     }
                   >
                     <span className="block float-left text-xl">{i.icon}</span>
-                    <span
-                      className={`text-sm font-medium flex-1 ${
-                        !open && "hidden"
-                      }`}
-                    >
+                    <span className={`text-sm flex-1 ${!open && "hidden"}`}>
                       {i.title}
                     </span>
                   </NavLink>

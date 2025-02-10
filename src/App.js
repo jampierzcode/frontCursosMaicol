@@ -14,6 +14,8 @@ import Layout from "./components/rolAdmin/Layout";
 import Dashboard from "./pages/admin/Dashboard";
 import NotFoundPage from "./pages/NotFoundPage";
 import Identy from "./pages/Identy";
+import Categories from "./pages/admin/Categories";
+import Courses from "./pages/admin/Courses";
 
 function App() {
   return (
@@ -33,6 +35,26 @@ function App() {
               <PrivateRoute roles={["admin"]}>
                 <Layout>
                   <Dashboard />
+                </Layout>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/categories"
+            element={
+              <PrivateRoute roles={["admin"]}>
+                <Layout>
+                  <Categories />
+                </Layout>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/courses"
+            element={
+              <PrivateRoute roles={["admin"]}>
+                <Layout>
+                  <Courses />
                 </Layout>
               </PrivateRoute>
             }
