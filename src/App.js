@@ -16,6 +16,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import Identy from "./pages/Identy";
 import Categories from "./pages/admin/Categories";
 import Courses from "./pages/admin/Courses";
+import VideoUploader from "./pages/admin/VideoUploader";
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="/subirvideo" element={<VideoUploader />} />
 
           <Route
             path="/usuarios"
