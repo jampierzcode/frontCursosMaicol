@@ -201,8 +201,6 @@ const Courses = () => {
   };
 
   const handleCreate = async () => {
-    console.log(selectedCategories);
-
     try {
       const response = await axios.post(`${apiUrl}/courses`, courseCreate, {
         headers: {
@@ -211,19 +209,23 @@ const Courses = () => {
         },
       });
       if (response.data.status === "success") {
-        const newCategories = selectedCategories.map((c) => ({
-          ...c,
-          course_id: response.data.data.id,
-        }));
-        message.success("Se ha creado correctamente la categoria");
-        const response_categories = await axios.post(
-          `${apiUrl}/courses_categories`,
-          { categories: newCategories }
-        );
+        if (selectedCategories.length > 0) {
+          const newCategories = selectedCategories.map((c) => ({
+            ...c,
+            course_id: response.data.data.id,
+          }));
+          const response_categories = await axios.post(
+            `${apiUrl}/courses_categories`,
+            { categories: newCategories }
+          );
+          console.log(response_categories);
+        }
         await buscar_courses();
         handleCancelCreate();
+        message.success("Se ha creado correctamente el curso");
       } else {
         console.log(response.data.message);
+        message.error("Ocurrio un error al crear este curso");
       }
     } catch (error) {
       message.error("Ocurrio un error al crear la categoria");
