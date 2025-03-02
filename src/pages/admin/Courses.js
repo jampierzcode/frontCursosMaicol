@@ -184,7 +184,7 @@ const Courses = () => {
       startIndex + itemsPerPage
     );
 
-    setVisibleCategories(paginated);
+    setVisibleCourses(paginated);
   };
   // useEffect para manejar el filtrado y paginación
   useEffect(() => {
