@@ -6,6 +6,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { TbAdjustments } from "react-icons/tb";
 import { MdAdd } from "react-icons/md";
 import dayjs from "dayjs";
+import { Link } from "react-router-dom";
 
 const Courses = () => {
   const { auth } = useAuth();
@@ -420,9 +421,12 @@ const Courses = () => {
                 <h1 className="font-bold text-lg">{c.title}</h1>
                 <p className="text-sm">{c.description}</p>
                 <div className="flex justify-end">
-                  <button className="inline-block p-2 rounded text-sm font-bold bg-primary text-white">
+                  <Link
+                    to={`/course/${c.id}`}
+                    className="inline-block p-2 rounded text-sm font-bold bg-primary text-white"
+                  >
                     Ver curso
-                  </button>
+                  </Link>
                 </div>
               </div>
             );

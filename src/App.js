@@ -17,6 +17,8 @@ import Identy from "./pages/Identy";
 import Categories from "./pages/admin/Categories";
 import Courses from "./pages/admin/Courses";
 import VideoUploader from "./pages/admin/VideoUploader";
+import Course from "./pages/admin/Course";
+import CourseEditor from "./pages/admin/CourseEdit";
 
 function App() {
   return (
@@ -56,6 +58,16 @@ function App() {
               <PrivateRoute roles={["admin"]}>
                 <Layout>
                   <Courses />
+                </Layout>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/course/:id"
+            element={
+              <PrivateRoute roles={["admin"]}>
+                <Layout>
+                  <CourseEditor />
                 </Layout>
               </PrivateRoute>
             }
