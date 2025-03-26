@@ -1,6 +1,15 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { Button, Input, Collapse, List, Modal, Upload, Select } from "antd";
+import {
+  Button,
+  Input,
+  Collapse,
+  List,
+  Modal,
+  Upload,
+  Select,
+  message,
+} from "antd";
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
@@ -63,14 +72,14 @@ const DraggableLesson = ({ lesson, index, sectionId, moveLesson }) => {
 
   return (
     <List.Item ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }}>
-      {lesson.title}
+      <b>{lesson.title}</b> <br /> <p>{lesson.description}</p>
     </List.Item>
   );
 };
 
 const CourseEditor = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-  const apiUrlUpload = process.env.REACT_UPLOAD_API_URL;
+  const apiUrlUpload = process.env.REACT_APP_UP_MULTIMEDIA;
   console.log(apiUrl);
   console.log(apiUrlUpload);
   const { id } = useParams(); // ID del curso desde la URL
@@ -149,8 +158,9 @@ const CourseEditor = () => {
     const response = await axios.post(`${apiUrlUpload}/index.php`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
+    message.success("Se subio el video, ahora dale en ok");
     console.log(response);
-    setNewLesson((prev) => ({ ...prev, resource: response.data.url }));
+    setNewLesson((prev) => ({ ...prev, resource: response.data.files[0].url }));
   };
   // Encuentra la posición de una sección en la lista
   const findSection = (id) => {

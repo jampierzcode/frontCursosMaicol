@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const apiUrl = process.env.REACT_APP_API_URL;
+  console.log(apiUrl);
   const [loading, setLoading] = useState(true);
   const [auth, setAuth] = useState({
     token: sessionStorage.getItem("token") || null,

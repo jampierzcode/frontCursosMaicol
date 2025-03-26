@@ -19,6 +19,7 @@ import Courses from "./pages/admin/Courses";
 import VideoUploader from "./pages/admin/VideoUploader";
 import Course from "./pages/admin/Course";
 import CourseEditor from "./pages/admin/CourseEdit";
+import LectureView from "./pages/admin/LecturaView";
 
 function App() {
   return (
@@ -58,6 +59,16 @@ function App() {
               <PrivateRoute roles={["admin"]}>
                 <Layout>
                   <Courses />
+                </Layout>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/lectureview/:id_lesson"
+            element={
+              <PrivateRoute roles={["admin"]}>
+                <Layout>
+                  <LectureView />
                 </Layout>
               </PrivateRoute>
             }
