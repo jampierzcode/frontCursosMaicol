@@ -113,7 +113,10 @@ const CourseEditor = () => {
       title: newSectionTitle,
       position,
     });
-    setSections([...sections, response.data]);
+    console.log(response);
+    const newSection = response.data;
+    newSection.lessons = [];
+    setSections([...sections, newSection]);
     setNewSectionTitle("");
   };
 
