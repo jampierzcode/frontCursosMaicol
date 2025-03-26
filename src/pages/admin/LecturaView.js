@@ -12,17 +12,18 @@ import {
 } from "react-icons/fa";
 
 const LectureView = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const { id_lesson } = useParams();
   const [lesson, setLesson] = useState(null);
   const [sections, setSections] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:3333/api/lessons/${id_lesson}`).then((res) => {
+    axios.get(`${apiUrl}/lessons/${id_lesson}`).then((res) => {
       console.log(res);
       setLesson(res.data);
     });
-    axios.get("http://localhost:3333/api/sections").then((res) => {
+    axios.get(`${apiUrl}/sections`).then((res) => {
       console.log(res);
       setSections(res.data);
     });
@@ -31,7 +32,7 @@ const LectureView = () => {
   const handleProgress = (progress) => {
     if (lesson && lesson.type_lesson === "video" && lesson.resource) {
       if (progress.playedSeconds >= progress.loadedSeconds - 10) {
-        axios.post("http://localhost:3333/api/progress", {
+        axios.post(`${apiUrl}/progress`, {
           lesson_id: id_lesson,
           completed: 1,
         });
