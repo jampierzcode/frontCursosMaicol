@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Button,
   Input,
@@ -14,6 +14,7 @@ import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { FaPlay } from "react-icons/fa";
 
 const { Panel } = Collapse;
 const { Option } = Select;
@@ -78,6 +79,7 @@ const DraggableLesson = ({ lesson, index, sectionId, moveLesson }) => {
 };
 
 const CourseEditor = () => {
+  const navigate = useNavigate();
   const apiUrl = process.env.REACT_APP_API_URL;
   const apiUrlUpload = process.env.REACT_APP_UP_MULTIMEDIA;
   console.log(apiUrl);
@@ -243,6 +245,17 @@ const CourseEditor = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="py-12 px-8">
+        {sections.length > 0 && sections[0].lessons.length > 0 ? (
+          <button
+            onClick={() =>
+              navigate(`/course/${id}/lectureview/${sections[0].lessons[0].id}`)
+            }
+            className="px-3 py-2 rounded text-white bg-primary flex items-center gap-3"
+          >
+            <FaPlay /> Ver curso
+          </button>
+        ) : null}
+
         <h2>Administrar Curso</h2>
         <Input
           placeholder="Nombre de la Sección"

@@ -59,7 +59,7 @@ const Login = () => {
       </div>
       <div className="h-full flex px-6 items-center justify-center bg-white">
         <form onSubmit={handleLogin} className="bg-white p-6 rounded w-full">
-          <h2 className="text-2xl font-bold mb-4 text-center">GROWTHSUITE</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">MAICURSOS</h2>
           {/* <h2 className="text-sm font-bold mb-4">Iniciar sesión</h2> */}
           {error ? (
             <h1 className="border p-2 border-red-500 text-red-500 rounded-full">

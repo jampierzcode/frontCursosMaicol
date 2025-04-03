@@ -13,7 +13,7 @@ import {
 
 const LectureView = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-  const { id_lesson } = useParams();
+  const { id_lesson, id_curso } = useParams();
   const [lesson, setLesson] = useState(null);
   const [sections, setSections] = useState([]);
   const navigate = useNavigate();
@@ -58,80 +58,94 @@ const LectureView = () => {
   };
 
   return (
-    <div className="flex bg-gray-300 p-6 gap-4">
-      <div style={{ flex: "70%" }}>
-        {lesson && lesson.typeLesson === "video" ? (
-          <>
-            <ReactPlayer
-              url={lesson.resource}
-              controls
-              // onProgress={handleProgress}
-            />
-          </>
-        ) : (
-          <a href={lesson?.resource} target="_blank" rel="noopener noreferrer">
-            Ver recurso
-          </a>
-        )}
+    <div className="">
+      <div className="flex justify-end">
+        <button
+          onClick={() => navigate(`/course/${id_curso}`)}
+          className="px-3 py-2 bg-primary text-white text-sm font-bold"
+        >
+          Volver a la edicion
+        </button>
       </div>
-      <div className="flex flex-col gap-3">
-        {sections
-          .sort((a, b) => a.position - b.position)
-          .map((section) => {
-            const isOpen = openSections[section.id] || false;
-            const hasActiveLesson = section.lessons.some(
-              (l) => l.id === id_lesson
-            );
+      <div className="flex gap-4">
+        <div style={{ flex: "70%" }}>
+          {lesson && lesson.typeLesson === "video" ? (
+            <>
+              <ReactPlayer
+                url={lesson.resource}
+                controls
+                // onProgress={handleProgress}
+              />
+            </>
+          ) : (
+            <a
+              href={lesson?.resource}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ver recurso
+            </a>
+          )}
+        </div>
+        <div className="flex flex-col gap-3">
+          {sections
+            .sort((a, b) => a.position - b.position)
+            .map((section) => {
+              const isOpen = openSections[section.id] || false;
+              const hasActiveLesson = section.lessons.some(
+                (l) => l.id === id_lesson
+              );
 
-            return (
-              <div
-                key={section.id}
-                className={`bg-white border rounded-lg p-3 shadow-md ${
-                  hasActiveLesson
-                    ? "border-blue-500 bg-blue-50"
-                    : "border-gray-300"
-                }`}
-              >
+              return (
                 <div
-                  className="flex justify-between items-center cursor-pointer"
-                  onClick={() => toggleSection(section.id)}
+                  key={section.id}
+                  className={`bg-white border rounded-lg p-3 shadow-md ${
+                    hasActiveLesson
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-gray-300"
+                  }`}
                 >
-                  <h3 className="font-semibold">{section.title}</h3>
-                  {isOpen ? (
-                    <FaChevronUp className="text-gray-600" />
-                  ) : (
-                    <FaChevronDown className="text-gray-600" />
-                  )}
-                </div>
-
-                {isOpen && (
-                  <div className="mt-2 space-y-2">
-                    {section.lessons.length > 0 ? (
-                      section.lessons
-                        .sort((a, b) => a.position - b.position)
-                        .map((l) => (
-                          <div
-                            key={l.id}
-                            className={`flex items-center gap-2 p-2 rounded-md cursor-pointer ${
-                              l.id === id_lesson
-                                ? "bg-blue-100 font-bold"
-                                : "bg-white"
-                            }`}
-                            onClick={() => navigate(`/lectureview/${l.id}`)}
-                          >
-                            <Checkbox checked={l.completed} />
-                            {getLessonIcon(l.typeLesson)}
-                            <span>{l.title}</span>
-                          </div>
-                        ))
+                  <div
+                    className="flex justify-between items-center cursor-pointer"
+                    onClick={() => toggleSection(section.id)}
+                  >
+                    <h3 className="font-semibold">{section.title}</h3>
+                    {isOpen ? (
+                      <FaChevronUp className="text-gray-600" />
                     ) : (
-                      <div className="text-sm">No hay lecciones</div>
+                      <FaChevronDown className="text-gray-600" />
                     )}
                   </div>
-                )}
-              </div>
-            );
-          })}
+
+                  {isOpen && (
+                    <div className="mt-2 space-y-2">
+                      {section.lessons.length > 0 ? (
+                        section.lessons
+                          .sort((a, b) => a.position - b.position)
+                          .map((l) => (
+                            <div
+                              key={l.id}
+                              className={`flex items-center gap-2 p-2 rounded-md cursor-pointer ${
+                                l.id === id_lesson
+                                  ? "bg-blue-100 font-bold"
+                                  : "bg-white"
+                              }`}
+                              onClick={() => navigate(`/lectureview/${l.id}`)}
+                            >
+                              <Checkbox checked={l.completed} />
+                              {getLessonIcon(l.typeLesson)}
+                              <span>{l.title}</span>
+                            </div>
+                          ))
+                      ) : (
+                        <div className="text-sm">No hay lecciones</div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+        </div>
       </div>
     </div>
   );

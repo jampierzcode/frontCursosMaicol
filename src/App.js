@@ -6,6 +6,8 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
+
+import "@ant-design/v5-patch-for-react-19";
 import { AuthProvider } from "./components/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import Login from "./pages/Login";
@@ -64,7 +66,7 @@ function App() {
             }
           />
           <Route
-            path="/lectureview/:id_lesson"
+            path="course/:id_curso/lectureview/:id_lesson"
             element={
               <PrivateRoute roles={["admin"]}>
                 <Layout>
